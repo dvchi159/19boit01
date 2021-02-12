@@ -1,5 +1,6 @@
- 
 #include <stdio.h>
+#include <time.h>
+
 int intInput(const char* mess){
   int inputValue;
   printf("%s", mess);
@@ -7,7 +8,15 @@ int intInput(const char* mess){
   return inputValue;
 }
 void tableDepreciation() {
-  FILE *outputFile = fopen("/home/fdc/Documents/Code_OUT/Test.txt", "w");
+  FILE *outputFile = fopen("/home/fdc/Documents/Code_OUT/Test.txt", "a");
+  {
+    time_t rawtime;
+    struct tm * timeinfo;
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    printf("Report Time: %s", asctime (timeinfo));
+    fprintf(outputFile, "\n\n*****\nReport Time: %s", asctime (timeinfo));
+  }
   int machineCost, depreciationRate, year;
   {//Input Value
     machineCost = intInput("Input Machine Cost: ");
@@ -39,6 +48,8 @@ void tableDepreciation() {
   fclose(outputFile);
 }
 int main(){
+
   tableDepreciation();
-  printf("Report file in '/home/fdc/Documents/Code_OUT/Test.txt' ");
+  printf(".....\nReport file in '/home/fdc/Documents/Code_OUT/Test.txt'\n");
 }
+
